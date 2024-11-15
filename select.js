@@ -913,7 +913,7 @@ style.innerHTML = `#monthsRange {
   }
   
   .chat-content {
-    height: 81%;
+    height: 84%;
   }
   
   .Empty-container {
