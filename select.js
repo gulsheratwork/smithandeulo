@@ -3953,134 +3953,127 @@ function initializePayPauseButton() {
 
 // Function to render the chat widget (as provided)
 function renderChatWidget() {
-    const chatWidgetContainer = document.getElementById('chat-widget');
-    chatWidgetContainer.style.display = 'block'; // Show the chat widget
+  const chatWidgetContainer = document.getElementById('chat-widget');
+  chatWidgetContainer.style.display = 'block'; // Show the chat widget
 
-    // Clear previous content
-    const chatContent = document.getElementById('chat-content');
-    chatContent.style.maxHeight = '81%'; // Set max-height to 81%
-    chatContent.innerHTML = ''; // Clear current content
+  // Clear previous content
+  const chatContent = document.getElementById('chat-content');
+  chatContent.style.maxHeight = '81%'; // Set max-height to 81%
+  chatContent.innerHTML = ''; // Clear current content
 
-    const chatHeader = document.getElementById('chat-header');
-    if (chatHeader) {
-        chatHeader.classList.remove('sticky-header');
-    }
-    chatHeader.innerHTML = "";
+  const chatHeader = document.getElementById('chat-header');
+  if (chatHeader) {
+      chatHeader.classList.remove('sticky-header');
+  }
+  chatHeader.innerHTML = "";
 
-    // Video background and progress bar
-    const videoBackground = document.getElementById('video-background');
-    videoBackground.innerHTML = `
-        <video id="background-video" autoplay loop muted>
-            <source src="https://storage.googleapis.com/msgsndr/yMsNTtrF5fKA28L0OMsP/media/673054c070d7a33a160f2140.mp4" type="video/mp4">
-        </video>
-        <div class="progress-bar-container">
-            <div class="progress-bar" id="progress-bar"></div>
-        </div>
-    `;
+  // Video background and progress bar
+  const videoBackground = document.getElementById('video-background');
+  videoBackground.innerHTML = `
+      <video id="background-video" autoplay loop muted>
+          <source src="https://storage.googleapis.com/msgsndr/yMsNTtrF5fKA28L0OMsP/media/673054c070d7a33a160f2140.mp4" type="video/mp4">
+      </video>
+      <div class="progress-bar-container">
+          <div class="progress-bar" id="progress-bar"></div>
+      </div>
+  `;
 
-    // Initialize the video and progress bar
-    const video = document.getElementById('background-video');
-    const progressBar = document.getElementById('progress-bar');
-    initializeVideoProgress(video, progressBar);
+  // Initialize the video and progress bar
+  const video = document.getElementById('background-video');
+  const progressBar = document.getElementById('progress-bar');
+  initializeVideoProgress(video, progressBar);
 
-    let emptyContainer = document.querySelector('.Empty-container');
-    if (emptyContainer) {
-        emptyContainer.style.display = 'none';
-    } else {
-        emptyContainer = document.createElement('div');
-        emptyContainer.className = 'Empty-container';
-        chatContent.appendChild(emptyContainer);
-    }
+  let emptyContainer = document.querySelector('.Empty-container');
+  if (emptyContainer) {
+      emptyContainer.style.display = 'none';
+  } else {
+      emptyContainer = document.createElement('div');
+      emptyContainer.className = 'Empty-container';
+      chatContent.appendChild(emptyContainer);
+  }
 
-    // Create Play/Pause button
-    const playPauseBtn = document.createElement('button');
-    playPauseBtn.id = 'play-pause-btn';
-    playPauseBtn.className = 'control-btn';
-    playPauseBtn.setAttribute('aria-label', 'Play/Pause');
+  // Create Play/Pause button
+  const playPauseBtn = document.createElement('button');
+  playPauseBtn.id = 'play-pause-btn';
+  playPauseBtn.className = 'control-btn';
+  playPauseBtn.setAttribute('aria-label', 'Play/Pause');
 
-    const playPauseIcon = document.createElement('img');
-    playPauseIcon.id = 'play-pause-icon';
-    playPauseIcon.className = 'control-btn';
-    playPauseIcon.setAttribute('aria-label', 'Play/Pause');
-    playPauseIcon.src = 'https://storage.googleapis.com/msgsndr/aJYHtddTenz299BOqzfz/media/66eb060cf9de91b118c93a66.png';
-    playPauseIcon.alt = 'Play/Pause Icon';
+  const playPauseIcon = document.createElement('img');
+  playPauseIcon.id = 'play-pause-icon';
+  playPauseIcon.className = 'control-btn';
+  playPauseIcon.setAttribute('aria-label', 'Play/Pause');
+  playPauseIcon.src = 'https://storage.googleapis.com/msgsndr/aJYHtddTenz299BOqzfz/media/66eb060cf9de91b118c93a66.png';
+  playPauseIcon.alt = 'Play/Pause Icon';
 
-    playPauseBtn.appendChild(playPauseIcon);
-    playPauseBtn.onclick = togglePlayPause;
+  playPauseBtn.appendChild(playPauseIcon);
+  playPauseBtn.onclick = togglePlayPause;
 
-    // Create Mute/Unmute button
-    const muteUnmuteBtn = document.createElement('button');
-    muteUnmuteBtn.id = 'mute-unmute-btn';
-    muteUnmuteBtn.className = 'control-btn';
-    muteUnmuteBtn.setAttribute('aria-label', 'Mute/Unmute');
-    muteUnmuteBtn.onclick = toggleMute;
+  // Create Mute/Unmute button
+  const muteUnmuteBtn = document.createElement('button');
+  muteUnmuteBtn.id = 'mute-unmute-btn';
+  muteUnmuteBtn.className = 'control-btn';
+  muteUnmuteBtn.setAttribute('aria-label', 'Mute/Unmute');
+  muteUnmuteBtn.onclick = toggleMute;
 
-    const muteUnmuteIcon = document.createElement('img');
-    muteUnmuteIcon.id = 'mute-unmute-icon';
-    muteUnmuteIcon.src = 'https://storage.googleapis.com/msgsndr/aJYHtddTenz299BOqzfz/media/66eb0b2cc6a83988da4ff9fd.png';
-    muteUnmuteBtn.appendChild(muteUnmuteIcon);
+  const muteUnmuteIcon = document.createElement('img');
+  muteUnmuteIcon.id = 'mute-unmute-icon';
+  muteUnmuteIcon.src = 'https://storage.googleapis.com/msgsndr/aJYHtddTenz299BOqzfz/media/66eb0b2cc6a83988da4ff9fd.png';
+  muteUnmuteBtn.appendChild(muteUnmuteIcon);
 
-    // Create Refresh button
-    const refreshBtn = document.createElement('button');
-    refreshBtn.id = 'refresh-btn';
-    refreshBtn.className = 'control-btn';
-    refreshBtn.setAttribute('aria-label', 'Refresh');
+  // Create Refresh button
+  const refreshBtn = document.createElement('button');
+  refreshBtn.id = 'refresh-btn';
+  refreshBtn.className = 'control-btn';
+  refreshBtn.setAttribute('aria-label', 'Refresh');
 
-    const refreshIcon = document.createElement('img');
-    refreshIcon.id = 'refresh-icon';
-    refreshIcon.src = 'https://storage.googleapis.com/msgsndr/aJYHtddTenz299BOqzfz/media/66eb04eaa256dd3e330dde51.png';
-    refreshBtn.onclick = resetChatAndReload;
-    refreshBtn.appendChild(refreshIcon);
+  const refreshIcon = document.createElement('img');
+  refreshIcon.id = 'refresh-icon';
+  refreshIcon.src = 'https://storage.googleapis.com/msgsndr/aJYHtddTenz299BOqzfz/media/66eb04eaa256dd3e330dde51.png';
+  refreshBtn.onclick = resetChatAndReload;
+  refreshBtn.appendChild(refreshIcon);
 
-    // Create Close button
-    const closeBtn = document.createElement('button');
-    closeBtn.id = 'close-btn';
-    closeBtn.setAttribute('aria-label', 'Close chat widget');
-    closeBtn.onclick = closeWidget;
+  // Create Close button
+  const closeBtn = document.createElement('button');
+  closeBtn.id = 'close-btn';
+  closeBtn.setAttribute('aria-label', 'Close chat widget');
+  closeBtn.onclick = closeWidget;
 
-    const closeIcon = document.createElement('img');
-    closeIcon.id = 'close-icon';
-    closeIcon.src = 'https://storage.googleapis.com/msgsndr/aJYHtddTenz299BOqzfz/media/66eb0456b8d5546df6dc3dac.png';
-    closeBtn.appendChild(closeIcon);
+  const closeIcon = document.createElement('img');
+  closeIcon.id = 'close-icon';
+  closeIcon.src = 'https://storage.googleapis.com/msgsndr/aJYHtddTenz299BOqzfz/media/66eb0456b8d5546df6dc3dac.png';
+  closeBtn.appendChild(closeIcon);
 
-    // Append buttons to chat header
-    chatHeader.appendChild(playPauseBtn);
-    chatHeader.appendChild(muteUnmuteBtn);
-    chatHeader.appendChild(refreshBtn);
-    chatHeader.appendChild(closeBtn);
+  // Append buttons to chat header
+  chatHeader.appendChild(playPauseBtn);
+  chatHeader.appendChild(muteUnmuteBtn);
+  chatHeader.appendChild(refreshBtn);
+  chatHeader.appendChild(closeBtn);
 
-    // Welcome message
-    const welcomeMessage = document.createElement('div');
-    welcomeMessage.className = 'message ot-message';
-    welcomeMessage.textContent = `Hi 👋🏼 Welcome to Smith & Eulo Law Firm. How can we help you?`;
+  // Welcome message
+  const welcomeMessage = document.createElement('div');
+  welcomeMessage.className = 'message ot-message';
+  welcomeMessage.textContent = `Hi 👋🏼 Welcome to Smith & Eulo Law Firm. How can we help you?`;
 
-    // Chat options
-    const chatOptions = document.createElement('div');
-    chatOptions.className = 'chat-options';
-    
-    // Array of options to add manually
-    const options = [
-        'Assault & Battery', 'Violation of Probation/Parole/Community Control', 'Expungement of Your Record',
-        'Domestic Violence', 'Possession of Drugs', 'Federal Criminal Case', 'DWI / DUI', 'Possession of a Weapon',
-        'Burglary', 'Child Abuse', 'Sex Crimes', 'Manslaughter', 'Child Pornography', 'Robbery', 'Harassment',
-        'Clearing Criminal Record', 'Prostitution', 'Drug Possession and Trafficking', 'Other Criminal Cases',
-        'Car Accident', 'Divorce And Custody', 'Buying Products', 'Buying Services', 'Child Special Needs'
-    ];
+  // Chat options with a single "Start Chat" button
+  const chatOptions = document.createElement('div');
+  chatOptions.className = 'chat-options';
 
-    options.forEach(option => {
-        const button = document.createElement('button');
-        button.className = 'option-btn bef';
-        button.textContent = option;
-        button.onclick = () => {
-            selectOption(option, true); // Call selectOption when button is clicked
-        };
-        chatOptions.appendChild(button);
-    });
+  // "Start Chat" button
+  const startChatButton = document.createElement('button');
+  startChatButton.className = 'option-btn bef';
+  startChatButton.textContent = 'Start Chat';
+  startChatButton.onclick = () => {
+      selectOption('Start Chat', true); // Call selectOption when button is clicked
+  };
 
-    // Append welcome message and options to chat content
-    chatContent.appendChild(welcomeMessage);
-    chatContent.appendChild(chatOptions);
+  // Append the "Start Chat" button to chat options
+  chatOptions.appendChild(startChatButton);
+
+  // Append welcome message and options to chat content
+  chatContent.appendChild(welcomeMessage);
+  chatContent.appendChild(chatOptions);
 }
+
 
 document.addEventListener('DOMContentLoaded', function () {
     // Call initializePayPauseButton or other initialization functions here
