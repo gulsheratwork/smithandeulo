@@ -6,6 +6,18 @@ style.innerHTML = `#monthsRange {
     width: 65%;
 }
 
+#situation-select {
+      padding: 10px;
+    margin-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 2px solid #e6b23d;
+    font-weight: 500;
+    font-family: 'Poppins';
+    border-radius: 10px;
+    width: 100%;
+}
+
 .input-text-field {
     width: 93%;
     padding: 10px;
@@ -1174,30 +1186,8 @@ chatWidget.innerHTML = `
                 <div class="Empty-container"></div>
                 <div class="message ot-message">Hi 👋🏼 Welcome to Smith & Eulo Law Firm. How can we help you?</div>
                 <div class="chat-options">
-                    <button class="option-btn bef" onclick="selectOption('Assault & Battery', true)">Assault & Battery</button>
-                    <button class="option-btn bef" onclick="selectOption('Violation of Probation/Parole/Community Control', true)">Violation of Probation/Parole/Community Control</button>
-                    <button class="option-btn bef" onclick="selectOption('Expungement of Your Record', true)">Expungement of Your Record</button>
-                    <button class="option-btn bef" onclick="selectOption('Domestic Violence', true)">Domestic Violence</button>
-                    <button class="option-btn bef" onclick="selectOption('Possession of Drugs', true)">Possession of Drugs</button>
-                    <button class="option-btn bef" onclick="selectOption('Federal Criminal Case', true)">Federal Criminal Case</button>
-                    <button class="option-btn bef" onclick="selectOption('DWI / DUI', true)">DWI / DUI</button>
-                    <button class="option-btn bef" onclick="selectOption('Possession of a Weapon', true)">Possession of a Weapon</button>
-                    <button class="option-btn bef" onclick="selectOption('Burglary', true)">Burglary</button>
-                    <button class="option-btn bef" onclick="selectOption('Child Abuse', true)">Child Abuse</button>
-                    <button class="option-btn bef" onclick="selectOption('Sex Crimes', true)">Sex Crimes</button>
-                    <button class="option-btn bef" onclick="selectOption('Manslaughter', true)">Manslaughter</button>
-                    <button class="option-btn bef" onclick="selectOption('Child Pornography', true)">Child Pornography</button>
-                    <button class="option-btn bef" onclick="selectOption('Robbery', true)">Robbery</button>
-                    <button class="option-btn bef" onclick="selectOption('Harassment', true)">Harassment</button>
-                    <button class="option-btn bef" onclick="selectOption('Clearing Criminal Record', true)">Clearing Criminal Record</button>
-                    <button class="option-btn bef" onclick="selectOption('Prostitution', true)">Prostitution</button>
-                    <button class="option-btn bef" onclick="selectOption('Drug Possession and Trafficking', true)">Drug Possession and Trafficking</button>
-                    <button class="option-btn bef" onclick="selectOption('Other Criminal Cases', true)">Other Criminal Cases</button>
-                    <button class="option-btn bef" onclick="selectOption('Car Accident', true)">Car Accident</button>
-                    <button class="option-btn bef" onclick="selectOption('Divorce And Custody', true)">Divorce And Custody</button>
-                    <button class="option-btn bef" onclick="selectOption('Buying Products', true)">Buying Products</button>
-                    <button class="option-btn bef" onclick="selectOption('Buying Services', true)">Buying Services</button>
-                    <button class="option-btn bef" onclick="selectOption('Child Special Needs', true)">Child Special Needs</button>
+                    <button class="option-btn bef" onclick="selectOption('Start Chat', true)">Start Chat</button>
+                    
                 </div>
             </div>
             <div class="footer">
@@ -1365,59 +1355,102 @@ function removeTypingIndicator(typingIndicator) {
 }
 
 function askSituation() {
-    debugger
-    questionStack.push({ question: "situation", answer: null });
-    const typingIndicator = showTypingIndicator();
-    setTimeout(() => {
-        removeTypingIndicator(typingIndicator);
-        const messageTime = new Date(); // Capture the message time
-        appendMessageWithImageAndTime("Could you briefly explain the situation for me", 'bot-message', messageTime);
+  debugger
+  questionStack.push({ question: "situation", answer: null });
+  const typingIndicator = showTypingIndicator();
+  setTimeout(() => {
+      removeTypingIndicator(typingIndicator);
+      const messageTime = new Date(); // Capture the message time
+      appendMessageWithImageAndTime("Hi 👋🏼 Welcome to Smith & Eulo Law Firm. How can we help you?", 'bot-message', messageTime);
 
-        // Create input field for user to type their response
-        const inputGroup = document.createElement('div');
-        inputGroup.id = "situation-input-group";
-        inputGroup.classList.add("chat-input-group");
+      // Create input group for the dropdown select field
+      const inputGroup = document.createElement('div');
+      inputGroup.id = "situation-input-group";
+      inputGroup.classList.add("chat-input-group");
 
-        // Input field for user response
-        const inputField = document.createElement('input');
-        inputField.type = "text";
-        inputField.id = "situation-input";
-        inputField.placeholder = "Type your response here...";
-        inputField.classList.add("chat-input", "input-text-field");
+      // Create select dropdown
+      const selectField = document.createElement('select');
+      selectField.id = "situation-select";
+      selectField.classList.add("chat-input", "input-select-field");
 
-        // Submit button for the input field
-        const submitButton = document.createElement('button');
-        submitButton.classList.add("submit-icon");
-        submitButton.onclick = handleSituation;
+      // Default option
+      const defaultOption = document.createElement('option');
+      defaultOption.value = "";
+      defaultOption.textContent = "Select an option";
+      defaultOption.disabled = true;
+      defaultOption.selected = true;
+      selectField.appendChild(defaultOption);
 
-        // Add image icon for submit button
-        const submitIcon = document.createElement('img');
-        submitIcon.src = "https://storage.googleapis.com/msgsndr/aJYHtddTenz299BOqzfz/media/66fa91a7923b423d630ec12e.png";
-        submitIcon.alt = "submit";
-        submitButton.appendChild(submitIcon);
+      // Options for the dropdown
+      const options = [
+          "Assault & Battery",
+          "Violation of Probation/Parole/Community Control",
+          "Expungement of Your Record",
+          "Domestic Violence",
+          "Possession of Drugs",
+          "Federal Criminal Case",
+          "DWI / DUI",
+          "Possession of a Weapon",
+          "Burglary",
+          "Child Abuse",
+          "Sex Crimes",
+          "Manslaughter",
+          "Child Pornography",
+          "Robbery",
+          "Harassment",
+          "Clearing Criminal Record",
+          "Prostitution",
+          "Drug Possession and Trafficking",
+          "Other Criminal Cases",
+          "Car Accident",
+          "Divorce And Custody",
+          "Buying Products",
+          "Buying Services",
+          "Child Special Needs"
+      ];
 
-        // Append the input field and button to the input group
-        inputGroup.appendChild(inputField);
-        inputGroup.appendChild(submitButton);
+      options.forEach(optionText => {
+          const option = document.createElement('option');
+          option.value = optionText;
+          option.textContent = optionText;
+          selectField.appendChild(option);
+      });
 
-        // Append the input group to chat content
-        document.getElementById('chat-content').appendChild(inputGroup);
-        scrollToBottom();
-    }, 1000);
+      // Submit button for the dropdown
+      const submitButton = document.createElement('button');
+      submitButton.classList.add("submit-icon");
+      submitButton.onclick = handleSituation;
+
+      // Add image icon for submit button
+      const submitIcon = document.createElement('img');
+      submitIcon.src = "https://storage.googleapis.com/msgsndr/aJYHtddTenz299BOqzfz/media/66fa91a7923b423d630ec12e.png";
+      submitIcon.alt = "submit";
+      submitButton.appendChild(submitIcon);
+
+      // Append the select field and button to the input group
+      inputGroup.appendChild(selectField);
+      inputGroup.appendChild(submitButton);
+
+      // Append the input group to chat content
+      document.getElementById('chat-content').appendChild(inputGroup);
+      scrollToBottom();
+  }, 1000);
 }
 
 function handleSituation() {
-    const situation = document.getElementById('situation-input').value;
-    if (!situation) {
-        alert('Please enter a brief description');
-        return;
-    }
-    document.getElementById('situation-input-group').remove();
-    appendSubmittedMessage(situation, 'user-message'); 
-    collectedData.situation = situation;
-    questionStack[questionStack.length - 1].answer = situation; 
-    setTimeout(() => askFullName('situation'), 1000);
+  const selectField = document.getElementById('situation-select');
+  const situation = selectField.value;
+  if (!situation) {
+      alert('Please select an option');
+      return;
+  }
+  document.getElementById('situation-input-group').remove();
+  appendSubmittedMessage(situation, 'user-message'); 
+  collectedData.situation = situation;
+  questionStack[questionStack.length - 1].answer = situation; 
+  setTimeout(() => askFullName('situation'), 1000);
 }
+
 
 function askFullName(selectedQuestion) {
     if (selectedQuestion === "industry") {
