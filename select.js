@@ -1384,7 +1384,6 @@ function askSituation() {
       // Options for the dropdown
       const options = [
           "Assault & Battery",
-          "Violation of Probation/Parole/Community Control",
           "Expungement of Your Record",
           "Domestic Violence",
           "Possession of Drugs",
